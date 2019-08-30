@@ -1,6 +1,6 @@
-from tkinter import *
-from tkinter import ttk
+import tkinter as tk
 
+"""
 def calculateELO(*args):
     try:
         playerTR = (10.0**(float(playerELO.get())/400.0))
@@ -30,27 +30,57 @@ def clearFields(*args):
     opponent_elo_entry.delete(0, END)
     player_elo_entry.delete(0, END)
     kFactor_entry.delete(0, END)
+"""
 
-root = Tk()
-root.title("ELO Calculator")
 
-mainframe = ttk.Frame(root, padding="2 2 2 2")
-mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=1)
 
-playerELO = StringVar()
-opponentELO = StringVar()
-winELO = float()
-loseELO = float()
-winELODisplay = StringVar()
-loseELODisplay = StringVar()
-playerTR = StringVar()
-opponentTR = StringVar()
-playerES = StringVar()
-opponentES = StringVar()
-kFactor = StringVar()
+root = tk.Tk()
 
+class MainMenu:
+    def __init__(self, master):
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        self.quickCalcButton = tk.Button(self.frame, text = 'Quick Calculator', width = 25, command = self.new_quick_calc_window)
+        self.quickCalcButton.pack()
+        self.frame.pack()
+
+    def new_quick_calc_window(self):
+        self.newWindow = tk.Toplevel(self.master)
+        self.app = QuickCalculator(self.newWindow)
+
+class QuickCalculator:
+
+    playerELO = tk.StringVar()
+    opponentELO = tk.StringVar()
+    winELO = float()
+    loseELO = float()
+    winELODisplay = tk.StringVar()
+    loseELODisplay = tk.StringVar()
+    playerTR = tk.StringVar()
+    opponentTR = tk.StringVar()
+    playerES = tk.StringVar()
+    opponentES = tk.StringVar()
+    kFactor = tk.StringVar()
+
+    def __init__(self, master):
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        self.setupButtons()
+
+    def setupButtons(self):
+        self.calculateButton = tk.Button(self.master, text = "Calculate")
+        self.clearButton = tk.Button(self.master, text = "Clear")
+        self.calculateButton.pack()
+        self.clearButton.pack()
+        self.frame.pack()
+
+def main():
+    root.title("ELO Calculator")
+    app = MainMenu(root)
+    root.mainloop()
+
+main()
+"""
 
 player_elo_entry = ttk.Entry(mainframe, width=7, textvariable=playerELO)
 player_elo_entry.grid(column=2, row=1, sticky=(W))
@@ -63,6 +93,7 @@ kFactor_entry.grid(column=2, row=3, sticky=(W))
 
 ttk.Label(mainframe, textvariable=winELODisplay).grid(column=2, row=4, sticky=(W, E))
 ttk.Label(mainframe, textvariable=loseELODisplay).grid(column=2, row=5, sticky=(W, E))
+
 ttk.Button(mainframe, text="Calculate", command=calculateELO).grid(column=4, row=1, sticky=E)
 ttk.Button(mainframe, text="Clear", command=clearFields).grid(column=4, row=2, sticky=E)
 
@@ -71,11 +102,21 @@ ttk.Label(mainframe, text="Opponent ELO").grid(column=1, row=2, sticky=W)
 ttk.Label(mainframe, text="K Factor").grid(column=1, row=3, sticky=W)
 ttk.Label(mainframe, text="ELO on win").grid(column=1, row=4, sticky=W)
 ttk.Label(mainframe, text="ELO on loss").grid(column=1, row=5, sticky=W)
-
-
 for child in mainframe.winfo_children(): child.grid_configure(padx=3, pady=3)
 
+
+"""
+
+
+
+"""
+mainframe = ttk.Frame(root, padding="2 2 2 2")
+mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=1)
+"""
+
+"""
 player_elo_entry.focus()
 root.bind('<Return>', calculateELO)
-
-root.mainloop()
+"""
